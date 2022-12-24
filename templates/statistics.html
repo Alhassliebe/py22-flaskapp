@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %} Поиск по базе {% endblock %}
+
+{% block text_enter %}
+    <h3>Статистика на данный момент:</h3>
+{% endblock %}
+
+{% block text_main_1 %}
+    <table class="table table-borderless">
+        <thead class="table table-striped">
+            <tr>
+                <th scope="col"><h4>О нашем опросе:</h4></th>
+            </tr>
+         </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><h5>Всего опрос прошло</h5></th>
+                <td class="align-text-bottom"><h4>{{ all_stat['total_count'] }}</h4></td>
+            </tr>
+            <tr>
+                <th scope="row"><h5>Женщин</h5></th>
+                <td class="align-text-bottom"><h4>{{ all_stat['women'] }}</h4></td>
+            </tr>
+            <tr>
+                <th scope="row"><h5>Мужчин</h5></th>
+                <td class="align-text-bottom"><h4>{{ all_stat['men'] }}</h4></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block text_main_2 %}
+    <table class="table table-borderless">
+        <thead class="table table-striped">
+            <tr>
+                <th scope="col"><h4>О возрасте респондентов:</h4></th>
+            </tr>
+         </thead>
+        <tbody>
+            <tr>
+                <th scope="row"><h5>Средний возраст</h5></th>
+                <td class="align-text-bottom"><h4>{{ all_stat['age_mean'] }}</h4></td>
+            </tr>
+            <tr>
+                <th scope="row"><h5>Минимальный возраст</h5></th>
+                <td class="align-text-bottom"><h4>{{ all_stat['age_min'] }}</h4></td>
+            </tr>
+            <tr>
+                <th scope="row"><h5>Максимальный возраст</h5></th>
+                <td class="align-text-bottom"><h4>{{ all_stat['age_max'] }}</h4></td>
+            </tr>
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block text_description %}
+    <h4>Дают ли люди имена приборам?</h4>
+    {% for question in questions %}
+        <table class="table table-borderless">
+            <thead class="table table-striped">
+                <tr>
+                     {% if question.question_text.startswith('Какое') %}
+                     {% elif question.question_text.startswith('(необязательный)') %}
+                     {% elif question.question_text.startswith('Считаете') %}
+                     {% else %}
+                     {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for option in whole_ans[question.question_id] %}
+                    <tr>
+                        <th scope="row"><h5>{{ option }}</h5></th>
+                        <td class="align-text-bottom"><h4>{{ whole_ans[question.question_id][option] }}</h4></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+{% endblock %}
