@@ -1,2 +1,2 @@
 # Ссылка на сайт
-http://mlemrr.pythonanywhere.com/
+_на данный момент не работает_ http://mlemrr.pythonanywhere.com/
